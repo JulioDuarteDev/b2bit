@@ -1,10 +1,17 @@
-import "./App.css";
-import b2bit from "./assets/img/b2bit.png";
 import { useFormik } from "formik";
+import * as Yup from "yup";
 
+import b2bit from "./assets/img/b2bit.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+
+const validationSchema = Yup.object({
+  email: Yup.string()
+    .email("Insert a valid e-mail")
+    .required("A valid e-mail is required"),
+  password: Yup.string().required("A password is required"),
+});
 
 function App() {
   const formik = useFormik({
@@ -12,6 +19,9 @@ function App() {
       email: "",
       password: "",
     },
+    validationSchema,
+    validateOnBlur: false,
+    validateOnChange: false,
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
     },
@@ -23,10 +33,15 @@ function App() {
         <img width={295} src={b2bit} alt="Logotipo b2bit" />
         <form
           onSubmit={formik.handleSubmit}
-          className="flex flex-col items-center justify-center "
+          className="flex flex-col items-center justify-center gap-4"
         >
           <div className={"w-full"}>
-            <Label htmlFor="email">E-mail</Label>
+            <Label
+              className={formik.errors.email ? "text-red-600" : ""}
+              htmlFor="email"
+            >
+              E-mail
+            </Label>
             <Input
               id="email"
               name="email"
@@ -35,10 +50,17 @@ function App() {
               onChange={formik.handleChange}
               value={formik.values.email}
             />
+            {formik.errors.email && formik.touched.email && (
+              <div className={"text-red-600"}>{formik.errors.email}</div>
+            )}
           </div>
-
           <div className={"w-full"}>
-            <Label htmlFor="password">Password</Label>
+            <Label
+              className={formik.errors.password ? "text-red-600" : ""}
+              htmlFor="password"
+            >
+              Password
+            </Label>
             <Input
               id="password"
               name="password"
@@ -47,8 +69,10 @@ function App() {
               onChange={formik.handleChange}
               value={formik.values.password}
             />
+            {formik.errors.password && (
+              <div className={"text-red-600"}>{formik.errors.password}</div>
+            )}
           </div>
-
           <Button type="submit">Sign In</Button>
         </form>
       </div>
