@@ -1,10 +1,20 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import { User } from "@/types/User";
+import React from "react";
 
-export const AuthContext = createContext({});
+interface AuthContextProps {
+  user: User | null;
+  login: (values: { email: string; password: string }) => Promise<void>;
+  logout: () => void;
+  isAuthenticated: boolean;
+}
 
-export const AuthProvider = ({ children }) => {
+export const AuthContext = createContext<AuthContextProps>(
+  {} as AuthContextProps,
+);
+
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const isAuthenticated: boolean = !!user;
 
@@ -12,7 +22,7 @@ export const AuthProvider = ({ children }) => {
     const accessToken: string | null = localStorage.getItem("access");
 
     if (accessToken && !isAuthenticated) {
-      getUser(accessToken);
+      getUser(accessToken).catch((error) => console.error(error));
     }
   }, [user]);
 
@@ -29,12 +39,12 @@ export const AuthProvider = ({ children }) => {
       "Content-Type": "application/json",
     };
     const response = await axios.post(url, values, { headers });
-    const tokenAcesso = response.data.tokens.access;
+    const accessToken = response.data.tokens.access;
 
-    if (tokenAcesso) {
-      localStorage.setItem("access", tokenAcesso);
+    if (accessToken) {
+      localStorage.setItem("access", accessToken);
       localStorage.setItem("refresh", response.data.tokens.refresh);
-      getUser(tokenAcesso);
+      getUser(accessToken).catch((error) => console.error(error));
     }
   };
 

@@ -10,7 +10,6 @@ const router = createBrowserRouter([
   { path: "/profile", element: <AuthenticatedRoute Component={Profile} /> },
 ]);
 
-// return <AuthenticatedRoute Component={Profile} />;
 function App() {
   return (
     <AuthProvider>
