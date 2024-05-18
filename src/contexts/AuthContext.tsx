@@ -63,6 +63,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         title: "Ops!",
         variant: "destructive",
       });
+
+      throw error;
     }
   };
 

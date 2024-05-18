@@ -19,6 +19,7 @@ const validationSchema = Yup.object({
 export function Login() {
   const navigate = useNavigate();
   const { login } = useAuth();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const formik = useFormik({
     initialValues: {
@@ -29,8 +30,13 @@ export function Login() {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
-      await login(values);
-      navigate("/profile");
+      setLoading(true);
+      try {
+        await login(values);
+        navigate("/profile");
+      } finally {
+        setLoading(false);
+      }
     },
   });
 
