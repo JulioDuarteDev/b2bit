@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input.tsx";
 import { Label } from "@/components/ui/label.tsx";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth.tsx";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { useState } from "react";
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -93,6 +95,7 @@ export function Login() {
             className={"w-full text-lg font-bold mt-2.5 h-14"}
             type="submit"
           >
+            {loading && <ReloadIcon className="mr-3 size-6 animate-spin" />}
             Sign In
           </Button>
         </form>

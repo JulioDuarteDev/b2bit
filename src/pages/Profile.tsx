@@ -3,13 +3,18 @@ import { Input } from "@/components/ui/input.tsx";
 import { Label } from "@/components/ui/label.tsx";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth.tsx";
+import { useState } from "react";
+import { ReloadIcon } from "@radix-ui/react-icons";
 
 export function Profile() {
   const navigate = useNavigate();
   const { logout, user } = useAuth();
+  const [loading, setLoading] = useState<boolean>(false);
 
   function handleLogout() {
+    setLoading(true);
     logout();
+    setLoading(false);
     navigate("/");
   }
 
@@ -22,12 +27,14 @@ export function Profile() {
           <Button
             className={"w-64 h-11 font-bold text-base"}
             onClick={handleLogout}
+            disabled={loading}
           >
+            {loading && <ReloadIcon className="mr-3 size-6 animate-spin" />}
             Logout
           </Button>
         </header>
         <div
-          id={"container"}
+          id={"container_profile"}
           className="bg-background self-center flex-col drop-shadow-profile rounded-2xl p-7.5 flex gap-5"
         >
           <div
