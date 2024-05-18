@@ -26,6 +26,7 @@ module.exports = {
           login: "#FAFAFA",
           private: "#F1F5F9",
           input: "#F1F1F1",
+          "input-disabled": "#F4F4F4",
         },
         foreground: "hsl(var(--foreground))",
         primary: {
@@ -81,6 +82,11 @@ module.exports = {
       },
       dropShadow: {
         login: "0px 0px 64px rgba(0, 0, 0, 0.25)",
+        profile: "0px 2px 10px rgba(0, 0, 0, 0.1)",
+      },
+      spacing: {
+        7.5: "1.875rem" /* 30px */,
+        74: "18.5rem" /* 296px */,
       },
     },
   },

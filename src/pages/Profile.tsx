@@ -28,10 +28,12 @@ export function Profile() {
         </header>
         <div
           id={"container"}
-          className="bg-background self-center flex-col drop-shadow-2xl rounded-2xl p-4 flex gap-4"
+          className="bg-background self-center flex-col drop-shadow-profile rounded-2xl p-7.5 flex gap-5"
         >
-          <div className={"flex flex-col justify-center items-center gap-2"}>
-            <p className={"font-semibold text-xs"}>Profile picture</p>
+          <div
+            className={"flex flex-col justify-center items-center gap-2 mb-2.5"}
+          >
+            <p className={"font-semibold text-xs leading-3"}>Profile picture</p>
             <img
               className={"size-14 rounded"}
               src={user?.avatar.low}
@@ -39,23 +41,32 @@ export function Profile() {
             />
           </div>
           <div className={"flex flex-col gap-2"}>
-            <Label htmlFor={"user_name"} className={"text-sm"}>
+            <Label htmlFor={"user_name"} className={"text-sm leading-3"}>
               <span className={"font-normal"}>Your</span> Name
             </Label>
             <Input
               id={"user_name"}
-              className={"w-72"}
+              className={
+                "h-11 w-74 border-0 text-sm leading-3 disabled:opacity-100 bg-input-disabled"
+              }
               value={user?.name}
               disabled={true}
             />
           </div>
           <div className={"flex flex-col gap-2"}>
-            <Label htmlFor={"user_email"} className={"text-sm"}>
+            <Label htmlFor={"user_email"} className={"text-sm leading-3 "}>
               <span>
                 <span className={"font-normal"}>Your</span> Email
               </span>
             </Label>
-            <Input id={"user_email"} value={user?.email} disabled={true} />
+            <Input
+              className={
+                "h-11 w-74 border-0 text-sm leading-3 disabled:opacity-100 bg-input-disabled"
+              }
+              id={"user_email"}
+              value={user?.email}
+              disabled={true}
+            />
           </div>
         </div>
       </div>
