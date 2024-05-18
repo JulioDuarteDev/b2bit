@@ -5,9 +5,14 @@ import { AuthenticatedRoute } from "@/components/AuthenticatedRoute.tsx";
 import { Profile } from "@/pages/Profile.tsx";
 import { AuthProvider } from "@/contexts/AuthContext.tsx";
 import { Toaster } from "@/components/ui/toaster.tsx";
+import { LoginRoute } from "@/components/LoginRoute.tsx";
 
 const router = createBrowserRouter([
-  { path: "/", element: <Login />, errorElement: <Error404 /> },
+  {
+    path: "/",
+    element: <LoginRoute Component={Login} />,
+    errorElement: <Error404 />,
+  },
   { path: "/profile", element: <AuthenticatedRoute Component={Profile} /> },
 ]);
 
