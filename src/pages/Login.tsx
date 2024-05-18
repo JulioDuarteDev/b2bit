@@ -27,13 +27,8 @@ export function Login() {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
-      try {
-        await login(values);
-        navigate("/profile");
-      } catch (error) {
-        console.log("Error");
-        console.log(error);
-      }
+      await login(values);
+      navigate("/profile");
     },
   });
 

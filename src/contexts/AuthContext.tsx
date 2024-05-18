@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import { User } from "@/types/User";
 import React from "react";
+import { useToast } from "@/components/ui/use-toast";
 
 interface AuthContextProps {
   user: User | null;
@@ -17,18 +18,23 @@ export const AuthContext = createContext<AuthContextProps>(
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const isAuthenticated: boolean = !!user;
+  const { toast } = useToast();
 
   useEffect(() => {
     const accessToken: string | null = localStorage.getItem("access");
 
     if (accessToken && !isAuthenticated) {
-      getUser(accessToken).catch((error) => console.error(error));
+      getUser(accessToken).then();
     }
   }, [user]);
 
   const logout = () => {
     localStorage.removeItem("access");
     localStorage.removeItem("refresh");
+    toast({
+      description: `See you next time.`,
+      title: "Bye!",
+    });
     setUser(null);
   };
 
@@ -38,13 +44,25 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       Accept: "application/json;version=v1_web",
       "Content-Type": "application/json",
     };
-    const response = await axios.post(url, values, { headers });
-    const accessToken = response.data.tokens.access;
 
-    if (accessToken) {
-      localStorage.setItem("access", accessToken);
+    try {
+      const response = await axios.post(url, values, { headers });
+      console.log(response);
+      localStorage.setItem("access", response.data.tokens.access);
       localStorage.setItem("refresh", response.data.tokens.refresh);
-      getUser(accessToken).catch((error) => console.error(error));
+      await getUser(response.data.tokens.access);
+      toast({
+        description: `Welcome, ${response.data.user.name}!`,
+      });
+    } catch (error: any) {
+      toast({
+        description:
+          error.response?.data.detail ||
+          error.message ||
+          "An unknown error occurred.",
+        title: "Ops!",
+        variant: "destructive",
+      });
     }
   };
 
@@ -55,8 +73,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
-    const response = await axios.get(url, { headers });
-    setUser(response.data);
+    try {
+      const response = await axios.get(url, { headers });
+      setUser(response.data);
+    } catch (error: any) {
+      toast({
+        description:
+          error.response?.data.detail ||
+          error.message ||
+          "An unknown error occurred.",
+        title: "Ops!",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
