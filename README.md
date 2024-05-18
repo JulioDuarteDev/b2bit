@@ -1,30 +1,57 @@
-# React + TypeScript + Vite
+# B2BIT
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Esse projeto se trata de um desafio proposto pela B2BIT, em seu processo seletivo para desenvolvedor ReactJS, onde o objetivo é implementar uma
+aplicação onde um usuário possa se autenticar e visualizar uma página privada no sistema.
 
-Currently, two official plugins are available:
+Construi as interfaces utilizando protótipos disponibilizados no Figma e implementei a autenticação JWT com a API fornecida pela empresa.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<a href="https://b2bit-julio-duarte.vercel.app" target="_blank"> Clique aqui para conferir como ficou </a>
 
-## Expanding the ESLint configuration
+## 👨‍💻 Foi implementado
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+* Autenticação JWT
+* Validação de formulários
+* Feedback de ações realizadas
+* Interceptors para requests do Axios
+* Tela de erro
 
-- Configure the top-level `parserOptions` property like this:
+## 🔧 Tecnologias/ferramentas utilizadas
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+### Web
+
+* Axios
+* Formik
+* React Router
+* ReactJS
+* Shadcn/ui
+* Tailwind CSS
+* Typescript
+* Yup
+
+### Deploy
+
+- Vercel
+
+## 💻 Como rodar o projeto
+
+Este projeto utiliza Node.js, portanto, certifique-se de ter a versão mais recente instalada em seu sistema. Se você não tiver o Node.js instalado, você pode
+baixá-lo [aqui](https://nodejs.org/en/download/package-manager/current).
+
+Para rodar o projeto os seguintes comandos em seu terminal:
+
+```bash
+# Copie o repositório
+$ git clone https://github.com/maoiki/b2bit.git
+
+# Entre no repositório
+$ cd b2bit
+
+# Instale as dependências
+$ npm install
+
+# Inicie o projeto
+npm run dev
+
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Com isso, o projeto estará disponível no seu navegador acessando a url especificada no terminal.
