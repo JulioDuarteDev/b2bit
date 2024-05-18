@@ -49,7 +49,7 @@ export function Profile() {
               className={
                 "h-11 w-74 border-0 text-sm leading-3 disabled:opacity-100 bg-input-disabled"
               }
-              value={user?.name}
+              value={user?.name || ""}
               disabled={true}
             />
           </div>
@@ -64,7 +64,7 @@ export function Profile() {
                 "h-11 w-74 border-0 text-sm leading-3 disabled:opacity-100 bg-input-disabled"
               }
               id={"user_email"}
-              value={user?.email}
+              value={user?.email || ""}
               disabled={true}
             />
           </div>
