@@ -39,15 +39,22 @@ export function Login() {
 
   return (
     <div className="h-screen bg-background-login flex flex-col items-center justify-center">
-      <div className="bg-background flex-row drop-shadow-2xl rounded-2xl p-4">
-        <img width={295} src={b2bit} alt="Logotipo b2bit" />
+      <div className="bg-background flex flex-col drop-shadow-login rounded-3xl px-7 pt-14 pb-10">
+        <img
+          className={"self-center mb-9"}
+          width={295}
+          src={b2bit}
+          alt="Logotipo b2bit"
+        />
         <form
           onSubmit={formik.handleSubmit}
-          className="flex flex-col items-center justify-center gap-4"
+          className="flex flex-col items-center justify-center gap-6"
         >
           <div className={"flex flex-col gap-2 w-96"}>
             <Label
-              className={formik.errors.email ? "text-red-600" : ""}
+              className={
+                formik.errors.email ? "text-red-600 leading-5" : "leading-5"
+              }
               htmlFor="email"
             >
               E-mail
@@ -56,6 +63,7 @@ export function Login() {
               id="email"
               name="email"
               type="email"
+              className={"text-base h-14 border-0"}
               placeholder={"@gmail.com"}
               onChange={formik.handleChange}
               value={formik.values.email}
@@ -66,7 +74,9 @@ export function Login() {
           </div>
           <div className={"flex flex-col gap-2 w-96"}>
             <Label
-              className={formik.errors.password ? "text-red-600" : ""}
+              className={
+                formik.errors.password ? "text-red-600 leading-5" : "leading-5"
+              }
               htmlFor="password"
             >
               Password
@@ -75,6 +85,7 @@ export function Login() {
               id="password"
               name="password"
               type="password"
+              className={"text-base h-14 border-0"}
               placeholder={"****************"}
               onChange={formik.handleChange}
               value={formik.values.password}
@@ -83,7 +94,12 @@ export function Login() {
               <div className={"text-red-600"}>{formik.errors.password}</div>
             )}
           </div>
-          <Button type="submit">Sign In</Button>
+          <Button
+            className={"w-full text-lg font-bold mt-2.5 h-14"}
+            type="submit"
+          >
+            Sign In
+          </Button>
         </form>
       </div>
     </div>

@@ -79,6 +79,9 @@ module.exports = {
       fontFamily: {
         sans: ["Nunito", "sans-serif"],
       },
+      dropShadow: {
+        login: "0px 0px 64px rgba(0, 0, 0, 0.25)",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
