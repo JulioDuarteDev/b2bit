@@ -34,6 +34,8 @@ export function Login() {
       try {
         await login(values);
         navigate("/profile");
+      } catch (error) {
+        console.error(error);
       } finally {
         setLoading(false);
       }
@@ -70,6 +72,7 @@ export function Login() {
               placeholder={"@gmail.com"}
               onChange={formik.handleChange}
               value={formik.values.email}
+              autoComplete={"email"}
             />
             {formik.errors.email && (
               <div className={"text-red-600"}>{formik.errors.email}</div>
@@ -92,6 +95,7 @@ export function Login() {
               placeholder={"****************"}
               onChange={formik.handleChange}
               value={formik.values.password}
+              autoComplete={"current-password"}
             />
             {formik.errors.password && (
               <div className={"text-red-600"}>{formik.errors.password}</div>

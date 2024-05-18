@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import axios from "axios";
+import api from "@/services/ApiService";
 import { User } from "@/types/User";
 import React from "react";
 import { useToast } from "@/components/ui/use-toast";
@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const accessToken: string | null = localStorage.getItem("access");
 
     if (accessToken && !isAuthenticated) {
-      getUser(accessToken).then();
+      getUser().catch((error) => console.error(error));
     }
   }, [user]);
 
@@ -39,18 +39,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const login = async (values: { email: string; password: string }) => {
-    const url = "https://api.homologation.cliqdrive.com.br/auth/login/";
-    const headers = {
-      Accept: "application/json;version=v1_web",
-      "Content-Type": "application/json",
-    };
-
+    const path = "/auth/login/";
     try {
-      const response = await axios.post(url, values, { headers });
-      console.log(response);
+      const response = await api.post(path, values);
       localStorage.setItem("access", response.data.tokens.access);
       localStorage.setItem("refresh", response.data.tokens.refresh);
-      await getUser(response.data.tokens.access);
+      await getUser();
       toast({
         description: `Welcome, ${response.data.user.name}!`,
       });
@@ -68,15 +62,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const getUser = async (token: string) => {
-    const url = "https://api.homologation.cliqdrive.com.br/auth/profile/";
-    const headers = {
-      Accept: "application/json;version=v1_web",
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    };
+  const getUser = async () => {
+    const path = "/auth/profile/";
     try {
-      const response = await axios.get(url, { headers });
+      const response = await api.get(path);
       setUser(response.data);
     } catch (error: any) {
       toast({
